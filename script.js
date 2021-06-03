@@ -1,8 +1,8 @@
 const players = {
   player1: {
     name: "Scorpion",
-    hp: 100,
-    img: "string",
+    hp: 80,
+    img: "http://reactmarathon-api.herokuapp.com/assets/subzero.gif",
     weapon: ["Крючек", "Огонь", "Перещение"],
     attack: function () {
       console.log(this.name + " " + "Fight ...");
@@ -10,8 +10,8 @@ const players = {
   },
   player2: {
     name: "Subzero",
-    hp: 200,
-    img: "string",
+    hp: 60,
+    img: "http://reactmarathon-api.herokuapp.com/assets/scorpion.gif",
     weapon: ["Лед", "Вода", "Предметы"],
     attack: function () {
       console.log(this.name + " " + "Fight ...");
@@ -22,9 +22,10 @@ const players = {
 players.player1.attack();
 players.player2.attack();
 
-const $root = document.querySelector(".root");
+const $arenas = document.querySelector(".arenas");
 
-function creatPlayer() {
+function creatPlayer(player, playNmae) {
+  console.log(player);
   // обявление переменных
   let div = document.createElement("div");
   let progressbar = document.createElement("div");
@@ -33,23 +34,24 @@ function creatPlayer() {
   let name = document.createElement("div");
   let img = document.createElement("img");
   // добавление классов
-  div.classList.add("player1");
+  div.classList.add(playNmae);
   progressbar.classList.add("progressbar");
   character.classList.add("character");
   life.classList.add("life");
   name.classList.add("name");
   img.classList.add("img");
   // добавление свойств
-  img.src = "http://reactmarathon-api.herokuapp.com/assets/scorpion.gif";
-  life.style.width = "100%";
-  life.innerText = players.player1.name;
+  img.src = player.img;
+  life.style.width = player.hp + "%";
+  life.innerText = player.name;
   // вставление внутрь элемента
   div.appendChild(character);
   character.appendChild(img);
   progressbar.appendChild(life);
   progressbar.appendChild(name);
   div.appendChild(progressbar);
-  $root.appendChild(div);
+  $arenas.appendChild(div);
 }
 
-creatPlayer();
+creatPlayer(players.player1, "player1");
+creatPlayer(players.player2, "player2");
